@@ -24,7 +24,7 @@ func New(input string) *Lexer {
 }
 
 // TODO: add unicode support (currently ASCII)
-// Helper method, returns next character and advances position in the input
+// Method, returns next character and advances position in the input
 func (l *Lexer) readChar() {
 	// end of input reached ?
 	if l.readPosition >= len(l.input) {
@@ -39,6 +39,8 @@ func (l *Lexer) readChar() {
 
 }
 
+// The syntax (l *Lexer) peekChar() means we are adding the peekChar() method to Lexer
+// l is a pointer to a Lexer instance, and the reference of that instance in our method
 func (l *Lexer) peekChar() byte {
 	if l.readPosition >= len(l.input) {
 		return 0
