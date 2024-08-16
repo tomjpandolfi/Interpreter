@@ -46,12 +46,16 @@ const (
 	IF       = "IF"
 	ELSE     = "ELSE"
 	RETURN   = "RETURN"
+
+	EQ     = "=="
+	NOT_EQ = "!="
 )
 
 var keywords = map[string]TokenType{
 	"fn":     FUNCTION,
 	"let":    LET,
 	"true":   TRUE,
+	"false":  FALSE,
 	"if":     IF,
 	"else":   ELSE,
 	"return": RETURN,
