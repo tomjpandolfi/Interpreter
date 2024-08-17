@@ -1,9 +1,9 @@
 package ast
 
-import "go/token"
+import "monkey/token"
 
 type Node interface {
-	TokenLiteral() string
+	TokenLiteral() string // A token literal is a stringified token to manipulate the actual reference rather than its value
 }
 
 type Statement interface {
