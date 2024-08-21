@@ -7,6 +7,7 @@ import "monkey/token"
 func (l *Lexer) NextToken() token.Token
 func (l *Lexer) readChar()
 func (l *Lexer) readIdentifier() string
+func (l *Lexer) peekChar() byte
 
 */
 
@@ -18,8 +19,8 @@ type Lexer struct {
 }
 
 func New(input string) *Lexer {
-	l := &Lexer{input: input}
-	l.readChar()
+	l := &Lexer{input: input} // create an instance of Lexer, pass input as input
+	l.readChar()              // initialise l by reading first character
 	return l
 }
 
@@ -41,6 +42,8 @@ func (l *Lexer) readChar() {
 
 // The syntax (l *Lexer) peekChar() means we are adding the peekChar() method to Lexer
 // l is a pointer to a Lexer instance, and the reference of that instance in our method
+
+// peekChar() returns the next character without advancing the position of the lexer
 func (l *Lexer) peekChar() byte {
 	if l.readPosition >= len(l.input) {
 		return 0
@@ -50,7 +53,7 @@ func (l *Lexer) peekChar() byte {
 }
 
 func (l *Lexer) NextToken() token.Token {
-	var tok token.Token
+	var tok token.Token // declare the tok variable, of type Token from the token package.
 
 	l.skipWhitespace()
 
