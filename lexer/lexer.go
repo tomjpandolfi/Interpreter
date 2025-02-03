@@ -14,34 +14,37 @@ func (l *Lexer) peekChar() byte
 type Lexer struct {
 	input        string
 	position     int  // current position (index) in input (points to current char)
-	readPosition int  // current reading position (index) in input (after current char)
+	readPosition int  // next position or current reading position (index) in input (after current char)
 	ch           byte // current char being examined
 }
 
 func New(input string) *Lexer {
 	l := &Lexer{input: input} // create an instance of Lexer, pass input as input
 	l.readChar()              // initialise l by reading first character
-	return l
+	return l                  // returns a pointer
 }
 
 // TODO: add unicode support (currently ASCII)
-// Method, returns next character and advances position in the input
+// Method, returns next character and advances position in the input. Iterator for your source code.
 func (l *Lexer) readChar() {
+
 	// end of input reached ?
 	if l.readPosition >= len(l.input) {
 		l.ch = 0 // Sets current character equal to ASCII's NUL char, (which is then interpreted as EOF?)
+
 	} else {
 		// Checks next position with read position, and sets it to this char
 		l.ch = l.input[l.readPosition]
 	}
+
 	l.position = l.readPosition
 	// After updating the current position, pos and pos+1 are the same.
 	l.readPosition += 1 // Update l readPosition to prepare for reading the next character.
-
 }
 
-// The syntax (l *Lexer) peekChar() means we are adding the peekChar() method to Lexer
-// l is a pointer to a Lexer instance, and the reference of that instance in our method
+// The syntax (l *Lexer) peekChar() means we are adding the peekChar() method to the Lexer struct
+// l is a pointer to the Lexer struct.
+// Through l, you can access all the methods of Lexer, making l similar to an instance of Lexer.
 
 // peekChar() returns the next character without advancing the position of the lexer
 func (l *Lexer) peekChar() byte {
@@ -52,7 +55,7 @@ func (l *Lexer) peekChar() byte {
 	}
 }
 
-func (l *Lexer) NextToken() token.Token {
+func (l *Lexer) NextToken() token.Token { // in the token package, find the Token struct
 	var tok token.Token // declare the tok variable, of type Token from the token package.
 
 	l.skipWhitespace()

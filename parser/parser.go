@@ -10,7 +10,7 @@ import (
 )
 
 type Parser struct {
-	l *lexer.Lexer // l is a pointer to the Lexer object
+	l *lexer.Lexer // l is a pointer to the Lexer struct from the lexer package
 
 	curToken  token.Token // curToken is of type Token
 	peekToken token.Token // peekToken is of type Token
