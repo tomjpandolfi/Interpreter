@@ -2,7 +2,7 @@ package lexer
 
 import "monkey/token"
 
-/* Methods of Lexer
+/* Methods of the Lexer class
 
 func (l *Lexer) NextToken() token.Token
 func (l *Lexer) readChar()
@@ -18,22 +18,33 @@ type Lexer struct {
 	ch           byte // current char being examined
 }
 
-func New(input string) *Lexer {
-	l := &Lexer{input: input} // create an instance of Lexer, pass input as input
-	l.readChar()              // initialise l by reading first character
-	return l                  // returns a pointer
+func New(input string) *Lexer { // returns a pointer to Lexer in memory
+
+	/*
+		We use a reference to Lexer with &Lexer because we don't want a copy of Lexer.
+		The Lexer struct has state (position, readPosition, ch) that needs to be mutated.
+		We don't want the method .readChar() to update the state of a copied Lexer.
+		We want the state of ch and position to persist outside of the .readChar method, and in the Lexer itself.
+		Thus we refer to the exact memory address of Lexer.
+	*/
+
+	l := &Lexer{input: input} // create an instance/pointer of Lexer (not a copy to Lexer, but a reference of Lexer)
+	// In Go, you can have a pointer also be an instance
+
+	l.readChar() // initialise l by reading first character
+	return l     // returns a pointer
 }
 
 // TODO: add unicode support (currently ASCII)
 // Method, returns next character and advances position in the input. Iterator for your source code.
 func (l *Lexer) readChar() {
 
-	// end of input reached ?
+	// Check that you are not done reading the input.
 	if l.readPosition >= len(l.input) {
-		l.ch = 0 // Sets current character equal to ASCII's NUL char, (which is then interpreted as EOF?)
+		l.ch = 0 // Sets current character equal to ASCII's NUL char, (which is then interpreted as EOF?).
 
 	} else {
-		// Checks next position with read position, and sets it to this char
+		// Assign the character in l.input at index readPosition to the current char
 		l.ch = l.input[l.readPosition]
 	}
 

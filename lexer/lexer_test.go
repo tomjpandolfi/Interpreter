@@ -31,7 +31,7 @@ if (5 < 10) {
 		expectedType    token.TokenType
 		expectedLiteral string
 	}{
-		{token.LET, "let"},
+		{token.LET, "let"}, // The token. here is the token package, in which there is a const LET
 		{token.IDENT, "five"},
 		{token.ASSIGN, "="},
 		{token.INT, "5"},
@@ -107,7 +107,7 @@ if (5 < 10) {
 		{token.EOF, ""},
 	}
 
-	l := New(input) // l is an instance of the Lexer
+	l := New(input) // l is an instance of the Lexer class
 
 	for i, tt := range tests { // tt -> tokens running through test
 
